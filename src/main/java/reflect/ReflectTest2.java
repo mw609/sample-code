@@ -3,25 +3,20 @@ package reflect;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-//通过反射机制，反编译一个类的属性Field
+/**
+ * 获取到Class，能干什么？
+ *     通过Class的newInstance()方法来实例化对象。
+ *     注意：newInstance()方法内部实际上调用了无参数构造方法，必须保证无参构造存在才可以。
+ */
 public class ReflectTest2 {
-    public static void main(String[] args) throws ClassNotFoundException {
-        StringBuilder s = new StringBuilder();
+    public static void main(String[] args) throws Exception {
+        // 下面这段代码是以反射机制的方式创建对象。
+
+        // 通过反射机制，获取Class，通过Class来实例化对象
         Class c = Class.forName("reflect.User");
-        s.append(Modifier.toString(c.getModifiers())+" class "+c.getSimpleName()+"{");
-        Field[] fields = c.getDeclaredFields();
-        for (Field f : fields){
-            s.append("\t");
-            // 获取属性的修饰符列表,返回的修饰符是一个数字，每个数字是修饰符的代号
-            // 用Modifier类的toString转换成字符串
-            s.append(Modifier.toString(f.getModifiers()));
-            if (f.getModifiers() != 0) s.append(" ");
-            s.append(f.getType().getSimpleName());// 获取属性的类型
-            s.append(" ");
-            s.append(f.getName());// 获取属性的名字
-            s.append(";\n");
-        }
-        s.append("}");
-        System.out.println(s);
+        // newInstance() 这个方法会调用User这个类的无参数构造方法，完成对象的创建。
+        // 重点是：newInstance()调用的是无参构造，必须保证无参构造是存在的！
+        Object obj = c.newInstance();
+        System.out.println(obj);
     }
 }

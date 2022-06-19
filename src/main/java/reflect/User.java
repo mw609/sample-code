@@ -4,7 +4,9 @@ public class User {
 
     public String name;
 
-    private int age;
+    public int age;
+
+    private String address;
 
 
     public String getName() {
@@ -23,7 +25,16 @@ public class User {
         this.age = age;
     }
 
-    public   void test1(String parmet1,int parmet2){
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public   void test1(String parmet1, int parmet2){
           System.out.println(parmet1+"+++"+parmet2);
     }
 }

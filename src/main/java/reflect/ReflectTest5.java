@@ -1,24 +1,48 @@
 package reflect;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
- * 通过反射机制调用一个对象的方法 重点
- *
- * 反射机制，让代码具有通用性，可变化的内容都是写在配置文件中
- * 将来修改配置文件后，创建的对象不一样了，调用的方法也不同了
- * 但是java代码不需要做任何改动，这就是反射机制的魅力
+ * 反射User类当中所有的Field（了解一下）
  *
  */
 public class ReflectTest5 {
     public static void main(String[] args) throws  Exception{
 
-        //使用反射机制调用方法
-        Class c =  Class.forName("reflect.User");
-        Object o = c.newInstance();
+        Class uc = Class.forName("reflect.User");
 
-        Method test1Mechod =  c.getDeclaredMethod("test1",String.class,int.class);
-        Object value = test1Mechod.invoke(o,"名字",2);
-        System.out.println(value);
+        String className = uc.getName();// Class类的getName方法
+        System.out.println("完整类名： " + className);
+        String simpleName = uc.getSimpleName();// Class类的getName方法
+        System.out.println("简类名： " + simpleName);
+
+        //获取public修饰的属性
+        Field[] fields1 = uc.getFields();
+        System.out.println(fields1.length);// 2
+        System.out.println(fields1[0].getName() + " " + fields1[1].getName()); //Field类中的getName犯法
+
+        System.out.println("----------------------");
+
+        //获取所有的属性
+        Field[] fields2 = uc.getDeclaredFields();
+        System.out.println(fields2.length);
+        for (Field f : fields2){
+            System.out.println(f.getName());
+        }
+
+        System.out.println("----------------------");
+
+        //获取属性的修饰符列表
+        for (Field f : fields2){
+            // 获取属性的修饰符列表,返回的修饰符是一个数字，每个数字是修饰符的代号
+            // 用Modifier类的toString转换成字符串
+            System.out.println(Modifier.toString(f.getModifiers()));
+            System.out.println(f.getType().getSimpleName());// 获取属性的类型
+            System.out.println(f.getName());// 获取属性的名字
+        }
     }
 }
+
+

@@ -61,4 +61,69 @@ public class FourthlyHashMap<K , V> {
         }
         return null;
     }
+
+    public void put(K key , V value){
+        if(size<=DEFAULT_CAPACITY*DEFAULT_LOAD_FACTOR){
+            //扩容
+            resize();
+        }
+        putValue(key,value,buckets);
+    }
+    private void resize(){
+        Node<K , V>[] newBuckets = new Node[DEFAULT_CAPACITY*2];
+        rehash(newBuckets);
+        buckets=newBuckets;
+    }
+    private void rehash(Node<K, V>[] newBuckets){
+        size=0;
+        for(int i=0;i<buckets.length;i++){
+            if(buckets[i]==null){
+                continue;
+            }
+            Node<K,V> node = buckets[i];
+            while (node!=null){
+                putValue(node.key,node.value,newBuckets);
+                node = node.next;
+            }
+        }
+    }
+
+    private void putValue(K key , V value , Node<K , V>[]table){
+        int index = getIndex(key, table.length);
+        Node node = table[index];
+        if(node == null){
+            table[index] = new Node<K, V>(key,value);
+            size++;
+            return;
+        }
+        while (node !=null){
+            if(node.key.hashCode()==key.hashCode() && (node.key==key || node.key.equals(key))){
+                node.value=value;
+                return;
+            }
+            node=node.next;
+        }
+        Node newNode = new Node(key,value,table[index]);
+        table[index] = newNode;
+        size++;
+
+    }
+
+    public V get(K key){
+        int index = getIndex(key, buckets.length);
+        Node<K , V> node = buckets[index];
+        if(node == null){
+            return null;
+        }
+        while (node!=null){
+            if(node.key.hashCode()==key.hashCode() && (node.key ==key || node.key.equals(key) )){
+               return node.value;
+            }
+            node=node.next;
+        }
+        return null;
+    }
+    public int size(){
+        return size;
+    }
 }

@@ -24,7 +24,7 @@ public class ThirdHashMap<K,V> {
 
     final int DEFAULT_CAPACITY = 16;
 
-    final float LOAD_PACTOR = 0.75f;
+    final float LOAD_FACTOR = 0.75f;
 
     private int size;
 
@@ -47,7 +47,7 @@ public class ThirdHashMap<K,V> {
 
 
     public void put(K key , V value){
-        if(size >= buckets.length * LOAD_PACTOR){
+        if(size >= buckets.length * LOAD_FACTOR){
            resize();
         }
         putVal(key,value,buckets);

@@ -1,8 +1,11 @@
 package map;
 
+import java.util.HashMap;
+
 public class Test {
 
     public static void main(String[] args) {
+
         ThirdHashMap map = new ThirdHashMap();
         for(int i=0;i<100;i++){
             map.put("测试"+i,"测试map"+i);

@@ -56,7 +56,7 @@ public class ThirdHashMap<K, V> {
         }
         while (node != null) {
             if (node.key.hashCode() == key.hashCode() &&
-                    (key == node.key || key.equals(key))) {
+                    (key == node.key || key.equals(node.key))) {
                 return node.value;
 
             }
@@ -80,7 +80,7 @@ public class ThirdHashMap<K, V> {
         }
         while (node != null) {
             if (node.key.hashCode() == key.hashCode() &&
-                    (key == node.key || key.equals(key))) {
+                    (key == node.key || key.equals(node.key))) {
 
                 bucket[index]=null;
                 return;
@@ -119,7 +119,7 @@ public class ThirdHashMap<K, V> {
         }
         while (node != null) {
             if (node.key.hashCode() == key.hashCode() &&
-                    (key == node.key || key.equals(key))) {
+                    (key == node.key || key.equals(node.key))) {
                 node.value = value;
                 return;
             }

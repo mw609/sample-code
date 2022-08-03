@@ -11,7 +11,7 @@ public class Test {
             map.put("测试"+i,"测试map"+i);
         }
         System.out.println(map.size());
-        map.remove("测试99");
+        //map.remove("测试99");
         for(int i= 0;i<100;i++){
             System.out.println(map.get("测试"+i));
         }
